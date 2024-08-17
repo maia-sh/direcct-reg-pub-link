@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+.Renviron
+.Rprofile
+
+
+data/raw/
+data/processed/*
+!data/processed/direcct-links-analysis.csv
+.quarto
+
+
+figures/
