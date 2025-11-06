@@ -6,6 +6,37 @@ direcct_links_analysis <- readr::read_csv(here::here("data", "processed", "direc
 
 source(here::here("R", "figures-setup.R"))
 
+# Specify order of link practice labels
+upset_levels <- c("TRN in full-text", "TRN in abstract", "TRN in PubMed metadata", "Publication in registration")
+
+# Change label order
+# https://github.com/const-ae/ggupset/issues/20
+change_label_order <- function(df) {
+  df |>
+    mutate(single_label = factor(single_label, levels = rev(upset_levels))) |>
+    ggplot(aes(x = at, y = single_label)) +
+    geom_rect(aes(fill = index %% 2 == 0), ymin = df$index - 0.5,
+              ymax = df$index + 0.5, xmin = 0, xmax = 1) +
+    geom_point(aes(color = observed), size = 3) +
+    geom_line(data = function(dat) dat[dat$observed,,drop=FALSE],
+              aes(group = labels), linewidth = 0) +
+    ylab("") + xlab("") +
+    scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+    scale_fill_manual(values= c(`TRUE` = "white", `FALSE` = "#F7F7F7")) +
+    scale_color_manual(values= c(`TRUE` = "black", `FALSE` = "#E0E0E0")) +
+    guides(color = "none", fill = "none") +
+    theme(
+      panel.background = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.ticks.length = unit(0, "pt"),
+      axis.title.y = element_blank(),
+      axis.title.x = element_blank(),
+      axis.line = element_blank(),
+      panel.border = element_blank()
+    )
+}
+
 # Transform links into list column of intersection sets
 trials_links <-
   direcct_links_analysis |>
@@ -60,7 +91,6 @@ plot_upset_links_reg_pub <-
   ylab("Percentage of trials") +
   xlab(NULL) +
   ggupset::theme_combmatrix(
-    # combmatrix.label.make_space = FALSE,
     combmatrix.panel.line.size = 0,
     combmatrix.label.text = element_text(family = "Roboto", size = 11)
   ) +
@@ -68,33 +98,30 @@ plot_upset_links_reg_pub <-
   theme(
     legend.background = element_rect(color = "transparent", fill = "transparent"),
     legend.position.inside = c(.85, .9),
-    axis.title.y = element_text(size = 11)
+    axis.title.y = element_text(size = 11, vjust = -40)
+  ) +
+  
+  ggupset::axis_combmatrix(
+    sep = ",",
+    override_plotting_function = change_label_order
   )
 
-# # Move y axis label closer to plot
-# # Thanks to https://stackoverflow.com/questions/68593982
-# plot_upset_links_reg_pub_registry +
-#   theme(axis.title.y=element_blank()) +
-#   annotate(geom = "text", x = -0.2, y = 6500, label = "count", angle = 90, size=4) +
-#   coord_cartesian(xlim = c(1, 8), clip = "off")
 
-# `ggupset` doesn't currently allow to change label order
-# https://github.com/const-ae/ggupset/issues/20
-
-ggsave(
-  fs::path(dir_figures, "plot-upset-link-type.pdf"),
-  plot_upset_links_reg_pub,
-  scale = 1.25,
-  width = 7,
-  height = 5
-  # scale = 2
-)
-
-ggsave(
-  fs::path(dir_figures, "plot-upset-link-type.svg"),
-  plot_upset_links_reg_pub,
-  scale = 1.25,
-  width = 7,
-  height = 5,
-  dpi = 600
-)
+# Save links plots --------------------------------------------------------
+# 
+# ggsave(
+#   fs::path(dir_figures, "plot-upset-link-type.pdf"),
+#   plot_upset_links_reg_pub,
+#   scale = 1.25,
+#   width = 7,
+#   height = 5
+# )
+# 
+# ggsave(
+#   fs::path(dir_figures, "plot-upset-link-type.svg"),
+#   plot_upset_links_reg_pub,
+#   scale = 1.25,
+#   width = 7,
+#   height = 5,
+#   dpi = 600
+# )

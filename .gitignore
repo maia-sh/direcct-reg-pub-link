@@ -6,12 +6,8 @@
 .Renviron
 .Rprofile
 
-
 data/raw/
 data/processed/*
 !data/processed/direcct-links-all.csv
 !data/processed/direcct-links-analysis.csv
-.quarto
-
-
 figures/
