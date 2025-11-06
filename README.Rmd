@@ -1,0 +1,39 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<!-- badges: start -->
+[![DOI](https://zenodo.org/badge/843828502.svg)](https://zenodo.org/badge/latestdoi/843828502)
+<!-- badges: end -->
+
+This repository contains code to analyze links between registrations and publications for the DIssemination of REgistered COVID-19 Clinical Trials (DIRECCT) cohort of clinical trials.
+
+🎓 This analysis was conducted as an additional, novel analysis for my PhD dissertation.
+
+🔎 **Methods**: The methods for analyzing links between clinical trial registrations and publications is adapted from [![DOI Article](https://img.shields.io/badge/DOI_Article-10.1177%2F17407745221087456-violet)](https://doi.org/10.1177/17407745221087456), which analyzed the "IntoValue" cohort of clinical trials conducted by German university medical centers.
+
+🦠 **Dataset**: The analysis builds on the DIRECCT cohort of clinical trials: [![DOI Article](https://img.shields.io/badge/DOI_Article-10.1186%2Fs12916--023--03161--6-violet)](https://doi.org/10.1186/s12916-023-03161-6) and [![DOI Dataset](https://img.shields.io/badge/DOI_Dataset-10.5281%2Fzenodo.8181415-blue
+)](https://doi.org/10.5281/zenodo.8181415). Beyond limiting the dataset to trials with a full results publication indexed in PubMed, for which a full-text PDF could be accessed, the dataset was further limited to trials registered in ClinicalTrials.gov or DRKS, and to a single full-results publication (earliest, if multiple publications) and registration (best linked trial registration, if multiple registrations) per trial. The additional screening was done to allow for comparability with the IntoValue cohort.
+
+🔁 **Reproducibility**: The links analysis is computationally reproducible by running [07_analyze-links.R](R/07_analyze-links.R). The preprocessing scripts (i.e., 01 - 06 in the [R directory](R)) rely, in part, on APIs and additional resources (e.g., PDFs) and are therefore not fully reproducible. To ensure you have the necessary packages and versions, run `renv::restore()`.
+
+📊 **Results**: This [UpSet plot](https://en.wikipedia.org/wiki/UpSet_plot) shows the percentage of trials with each combination of links between registration and publication. For additional findings, please see my PhD dissertation.
+
+```{r upset-plot, echo = FALSE, message = FALSE}
+source("R/07_analyze-links.R")
+plot(plot_upset_links_reg_pub)
+```
+
+✒️ **Citation**:
+
+- If you use the **code or data**, please cite: [![DOI](https://zenodo.org/badge/843828502.svg)](https://zenodo.org/badge/latestdoi/843828502)
+- If you use the **results**, please cite my PhD dissertation.
