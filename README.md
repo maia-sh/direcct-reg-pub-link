@@ -11,7 +11,8 @@ publications for the DIssemination of REgistered COVID-19 Clinical
 Trials (DIRECCT) cohort of clinical trials.
 
 🎓 This analysis was conducted as an additional, novel analysis for my
-PhD dissertation.
+PhD dissertation: [![DOI
+Dissertation](https://img.shields.io/badge/DOI_Dissertation-10.17169%2Frefubium--49902-purple)](https://doi.org/10.17169/refubium-49902)
 
 🔎 **Methods**: The methods for analyzing links between clinical trial
 registrations and publications is adapted from [![DOI
@@ -50,4 +51,11 @@ publication. For additional findings, please see my PhD dissertation.
 
 - If you use the **code or data**, please cite:
   [![DOI](https://zenodo.org/badge/843828502.svg)](https://zenodo.org/badge/latestdoi/843828502)
-- If you use the **results**, please cite my PhD dissertation.
+- If you use the **results**, please cite my PhD dissertation: [![DOI
+  Dissertation](https://img.shields.io/badge/DOI_Dissertation-10.17169%2Frefubium--49902-purple)](https://doi.org/10.17169/refubium-49902)
+
+> Salholz-Hillel, M. (2026). *Clinical trial transparency: Timely
+> results reporting and threaded evidence to increase value and reduce
+> waste in biomedical research* \[Doctoral Thesis, Charité -
+> Universitätsmedizin Berlin\].
+> <https://doi.org/10.17169/refubium-49902>
